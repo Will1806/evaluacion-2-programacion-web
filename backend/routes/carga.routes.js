@@ -38,4 +38,33 @@ router.post("/agregar", (req, res) => {
   res.status(201).json(getCarga());
 });
 
+// PUT /api/carga/actualizar-unidades/:id  { cantidad }
+router.put("/actualizar-unidades/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const { cantidad } = req.body;
+
+  if (!Number.isInteger(cantidad) || cantidad < 1) {
+    return res.status(400).json({ mensaje: "La cantidad debe ser un entero mayor a 0" });
+  }
+
+  const item = estado.itemsCargados.find((i) => i.id === id);
+  if (!item) {
+    return res.status(404).json({ mensaje: "El suministro no está en la carga" });
+  }
+
+  const producto = estado.inventario.find((p) => p.id === id);
+  const diferencia = cantidad - item.cantidad;
+
+  if (diferencia > producto.stock) {
+    return res.status(400).json({ mensaje: "Stock en base insuficiente" });
+  }
+  if (diferencia * producto.precio > creditosDisponibles()) {
+    return res.status(400).json({ mensaje: "Créditos insuficientes para esta cantidad" });
+  }
+
+  producto.stock -= diferencia;
+  item.cantidad = cantidad;
+
+  res.json(getCarga());
+});
 
