@@ -68,3 +68,21 @@ router.put("/actualizar-unidades/:id", (req, res) => {
   res.json(getCarga());
 });
 
+// DELETE /api/carga/eliminar/:id
+router.delete("/eliminar/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const indice = estado.itemsCargados.findIndex((i) => i.id === id);
+
+  if (indice === -1) {
+    return res.status(404).json({ mensaje: "El suministro no está en la carga" });
+  }
+
+  const producto = estado.inventario.find((p) => p.id === id);
+  producto.stock += estado.itemsCargados[indice].cantidad;
+  estado.itemsCargados.splice(indice, 1);
+
+  res.json(getCarga());
+});
+
+export default router;
+
