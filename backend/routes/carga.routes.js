@@ -85,4 +85,3 @@ router.delete("/eliminar/:id", (req, res) => {
 });
 
 export default router;
-
