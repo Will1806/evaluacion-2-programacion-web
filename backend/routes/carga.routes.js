@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getCarga } from "../data/store.js";
+import { estado, getCarga, creditosDisponibles } from "../data/store.js";
 
 const router = Router();
 
@@ -8,4 +8,3 @@ router.get("/", (req, res) => {
   res.json(getCarga());
 });
 
-export default router;
