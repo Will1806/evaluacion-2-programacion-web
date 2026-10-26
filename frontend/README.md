@@ -1,16 +1,20 @@
-# React + Vite
+# AstroLogistics Ltd. – Evaluación II Programación Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Ejecutar
+```bash
+# Terminal 1
+cd backend && npm install && npm run dev   # http://localhost:3000
 
-Currently, two official plugins are available:
+# Terminal 2
+cd frontend && npm install && npm run dev  # http://localhost:5173
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Endpoints
+| Método | Ruta | Descripción |
+|---|---|---|
+| GET | /api/inventario | Lista de suministros con precio y stock |
+| GET | /api/carga | Carga actual, créditos y total |
+| POST | /api/carga/agregar | Agrega suministro `{ equipoId, cantidad }` |
+| PUT | /api/carga/actualizar-unidades/:id | Cambia unidades `{ cantidad }` |
+| DELETE | /api/carga/eliminar/:id | Quita suministro y devuelve stock |
+| POST | /api/reiniciar | Reinicia la misión (al expirar el tiempo) |
